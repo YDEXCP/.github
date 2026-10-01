@@ -1,0 +1,19 @@
+# Reutilizável: mantém o PR "chore(main): release X.Y.Z" e, no merge dele, cria a tag vX.Y.Z e a
+# GitHub Release. Cada repositório chama no push da main e tem os próprios
+# release-please-config.json e .release-please-manifest.json na raiz.
+name: Release (reutilizável)
+
+on:
+  workflow_call:
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
